@@ -4,6 +4,11 @@ class settings(BaseSettings):
     # For Database
     DATABASE_URL:str
     
+    # For JWT
+    JWT_SECRET_KEY: str
+    JWT_ALGORITHM: str 
+    ACCESS_TOKEN_EXPIRE_MINUTES: int 
+    
     # For Setting Model Confing
     model_config = SettingsConfigDict(
         env_file='.env',
