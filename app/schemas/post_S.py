@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from user_S import UserResponseSchema
+from .user_S import UserResponseSchema
 
 class BlogCreateSchema(BaseModel):
     title: str = Field(..., min_length=5, max_length=255, examples=["My First FastAPI Post"])

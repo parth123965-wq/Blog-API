@@ -9,12 +9,12 @@ from ..models.user_M import User
 from ..schemas.user_S import UserCreateSchema, UserResponseSchema
 from ..routes.auth_R import hash_passward, varify_passward, generate_token
 
-route = APIRouter(
-    prefix='user',
+router = APIRouter(
+    prefix='/user',
     tags=["Authentication"]
 )
 
-@route.post(
+@router.post(
     '/register',
     response_model=UserResponseSchema,
     status_code=status.HTTP_201_CREATED
@@ -32,14 +32,14 @@ async def register(db:Annotated[AsyncSession,Depends(get_database)],user:UserCre
     new_user = User(
         username = user.username,
         email = user.email,
-        passward_hash = secure_passward
+        password_hash = secure_passward
     )
     db.add(new_user)
     await db.commit()
     await db.refresh(new_user)
     return new_user
 
-@route.post('/login')
+@router.post('/login')
 async def login(
     db:Annotated[AsyncSession,Depends(get_database)],
     form:Annotated[OAuth2PasswordRequestForm,Depends()]

@@ -1,12 +1,16 @@
 import jwt
 from datetime import datetime , timezone , timedelta
 from pwdlib import PasswordHash
-from config import setting  
+from ..config import setting  
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from typing import Annotated
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+
+class AuthError(Exception):
+    pass
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/login")
 
 PasswordHashContext = PasswordHash.recommended()
 
@@ -35,6 +39,6 @@ def get_current_user_email(token:Annotated[str,Depends(oauth2_scheme)])->str:
         if email is None:
             raise credentials_exception
         return email
-    except jwt.exceptions:
+    except jwt.PyJWTError:
         raise credentials_exception
     

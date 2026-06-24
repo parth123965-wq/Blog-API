@@ -1,8 +1,8 @@
 from sqlalchemy import Column , String , Text , DateTime , ForeignKey
-from database import Base
+from ..database import Base
 from sqlalchemy.orm import Mapped, mapped_column , relationship
 from datetime import datetime , timezone
-from user_M import User
+from .user_M import User
 
 # For a Categary Table   
 class Category(Base):
