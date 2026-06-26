@@ -5,12 +5,10 @@ project_root = str(Path(__file__).resolve().parent.parent)
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
 from app.database import engine, Base, SessionLocal
-from app.models.user_M import User
-from app.models.post_M import Category, Blog
+from app.models.post_M import Category
 
 
 async def create_tables():
